@@ -1,0 +1,211 @@
+---
+title: "QTM 150"
+subtitle: "Week 4 -- R Basics III <html><div style='float:left'></div><hr color='#f2a900' size=1px width=800px></html>"
+author: "Umberto Mignozzetti"
+date: "Feb 19"
+output: 
+  xaringan::moon_reader:
+    css: [default, metropolis, metropolis-fonts]
+    mathjax: "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_HTMLorMML"
+    nature: 
+      beforeInit: "https://raw.githubusercontent.com/umbertomig/qtm151/main/slides/wmisc/macros.js"
+      highlightStyle: github
+      ratio: 4:3
+      highlightLines: true
+      countIncrementalSlides: false
+      slideNumberFormat: |
+        <div class="progress-bar-container">
+          <div class="progress-bar" style="width: calc(%current% / %total% * 100%);">
+          </div>
+        </div>
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+r <- getOption("repos")
+r["CRAN"] <- "http://cran.cnr.berkeley.edu/"
+options(repos = r)
+```
+
+<style>
+
+.remark-slide-number {
+  position: inherit;
+}
+
+.remark-slide-number .progress-bar-container {
+  position: absolute;
+  bottom: 0;
+  height: 6px;
+  display: block;
+  left: 0;
+  right: 0;
+}
+
+.remark-slide-number .progress-bar {
+  height: 100%;
+  background-color: #f2a900;
+}
+
+.orange {
+  color: #f2a900;
+}
+</style>
+# Recap
+
+.font150[
+
+* You now know the main objects in R:
+  - Numeric
+  - Strings
+  - Factors
+  - Lists
+  - Datasets
+
+* Do you have any questions?
+
+* **Great job!!**
+
+* **Reminder:** There is a quiz for this class. The quiz is due Monday, 11:59 PM.
+
+]
+
+---
+
+# Today's Agenda
+
+.font150[
+
+* Working directory.
+
+* Loading datasets in your computer.
+
+* Working with datasets.
+
+* R Markdown.
+
+]
+
+---
+
+class: inverse, center, middle
+
+# Working directory
+
+<html><div style='float:left'></div><hr color='#f2a900' size=1px width=720px></html> 
+
+---
+
+# Working directory
+
+.font150[
+* R usually works within a particular folder in your computer.
+
+* This means that if you want to load a file that it is your computer, you need to:
+  - Either find this folder
+  - Or change to another folder
+  
+* We have two functions for that: `getwd()` and `setwd()`. Let's check them out?!
+
+* **Your turn**: change the directory that your computer is working.
+
+]
+
+---
+
+class: inverse, center, middle
+
+# Loading datasets in your computer
+
+<html><div style='float:left'></div><hr color='#f2a900' size=1px width=720px></html> 
+
+---
+
+# Loading datasets in your computer
+
+.font150[
+* R comes with example datasets for learning and demonstration purposes.
+
+* To find them, type `data()`. It will pop up a list of them.
+
+* There are also datasets online that we can use. Check out the class github page: https://github.com/umbertomig/qtm150
+
+* **Your turn**: Download and open one dataset from Canvas or Github.
+
+]
+
+---
+
+class: inverse, center, middle
+
+# Working with datasets
+
+<html><div style='float:left'></div><hr color='#f2a900' size=1px width=720px></html> 
+
+---
+
+# Working with datasets
+
+.font130[
+* We can use many functions to get to know our datasets:
+  - `names(data_set_here)`
+  - `dim(data_set_here)`
+  - `summary(data_set_here)`
+  - `str(data_set_here)`
+  - `head(data_set_here)`
+
+* **Your turn**: Load a dataset called USArrests and explore it. Hint: to load this dataset you should do `data(USArrests)`. To learn about it you should run `help(USArrests)`.
+
+]
+
+---
+
+# Working with datasets
+
+.font130[
+* We can also build some simple plots:
+  - `hist(data_set_here$variable_here)`
+  - `boxplot(data_set_here$variable_here)`
+  - `plot(data_set$variable_here, data_set$other_var)`
+
+* **Your turn**: Make a few plots of the dataset USArrests.
+
+]
+
+---
+
+class: inverse, center, middle
+
+# R Markdown
+
+<html><div style='float:left'></div><hr color='#f2a900' size=1px width=720px></html> 
+
+---
+
+# R Markdown
+
+.font150[
+* R Markdown is a way to integrate computer and stats coding with text.
+
+* These slides that you are seeing now were build using *R Markdown*!
+
+* Let's check out my R Markdown?
+
+* **Your turn**: build one R markdown. Using the default template, change your name, add one paragraph, and make one extra plot than the one in the default.
+]
+
+---
+
+class: inverse, center, middle
+
+# Questions?
+
+<html><div style='float:left'></div><hr color='#f2a900' size=1px width=720px></html> 
+
+---
+
+class: inverse, center, middle
+
+# Have a great weekend!
+
+<html><div style='float:left'></div><hr color='#f2a900' size=1px width=720px></html>
