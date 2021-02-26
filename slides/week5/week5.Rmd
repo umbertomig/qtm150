@@ -1,0 +1,367 @@
+---
+title: "QTM 150"
+subtitle: "Week 5 -- Graphs <html><div style='float:left'></div><hr color='#f2a900' size=1px width=800px></html>"
+author: "Umberto Mignozzetti"
+date: "Feb 26"
+output: 
+  xaringan::moon_reader:
+    css: [default, metropolis, metropolis-fonts]
+    mathjax: "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_HTMLorMML"
+    nature: 
+      beforeInit: "https://raw.githubusercontent.com/umbertomig/qtm151/main/slides/wmisc/macros.js"
+      highlightStyle: github
+      ratio: 4:3
+      highlightLines: true
+      countIncrementalSlides: false
+      slideNumberFormat: |
+        <div class="progress-bar-container">
+          <div class="progress-bar" style="width: calc(%current% / %total% * 100%);">
+          </div>
+        </div>
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+r <- getOption("repos")
+r["CRAN"] <- "http://cran.cnr.berkeley.edu/"
+options(repos = r)
+```
+
+<style>
+
+.remark-slide-number {
+  position: inherit;
+}
+
+.remark-slide-number .progress-bar-container {
+  position: absolute;
+  bottom: 0;
+  height: 6px;
+  display: block;
+  left: 0;
+  right: 0;
+}
+
+.remark-slide-number .progress-bar {
+  height: 100%;
+  background-color: #f2a900;
+}
+
+.orange {
+  color: #f2a900;
+}
+</style>
+# Recap
+
+.font150[
+
+You now know:
+
+* The main objects in R:
+* How to do basic operations with datasets.
+
+Do you have any questions?
+
+* **Great job!!**
+
+* **Reminder:** The quiz for this class will be posted at 4:00PM. The quiz is due Monday, 11:59 PM.
+
+]
+
+---
+
+# Today's Agenda
+
+.font150[
+
+Today we will learn `qplot` graphs.
+
+* Graphs for Continuous Variables
+
+* Graphs for Discrete Variables
+
+* Graphs for Two Continuous Variables
+
+* Graphs for Continuous x Discrete Variables
+
+]
+
+---
+
+class: inverse, center, middle
+
+# qplot
+
+<html><div style='float:left'></div><hr color='#f2a900' size=1px width=720px></html> 
+
+---
+
+# qplot and ggplot
+
+.font150[
+* `qplot`, as the names says, stands for quick plots.
+
+* It is great to generate `ggplot` graphs in a hurry.
+
+* `ggplot` graphs are the most basic and pretty graphs in R.
+
+* `ggplot` implements what we call the *grammar of graphs*, which is a method to generate data viz that we are going to learn in this class.
+
+]
+
+---
+
+# qplot and ggplot
+
+.font150[
+
+`ggplot` (and `qplot`) is based on the idea that graphs are a sum of three components: 
+
+* geoms (shapes)
+
+* a dataset
+
+* and a mapping system.
+
+This is the **`grammar of graphs`**.
+]
+
+---
+
+# qplot - Geoms Available
+
+.font130[
+
+Which graphs can we generate?
+  - **"point"**: scatterplots.
+  - **"line"**: line plot.
+  - **"histogram"**
+  - **"boxplot"**
+  - **"density"**
+  - **"bar"**: barplot.
+  - **"smooth"**: Fits a smooth line.
+  - **"dotplot"**: dotplot.
+]
+
+---
+
+
+# qplot - Options for Customization
+
+.font130[
+* And there are plenty of quick options to customize the graphs.
+  - `data`: Specify the data-frame.
+  - `main`: Title.
+  - `xlab`, `ylab`: x and y axis labels.
+  - `color`: Controls the color of the lines/points.
+  - `fill`: Controls the color of areas (e.g. for histograms).
+  - `size`: Controls the size of points.
+  - `shape`: The shape of points ("circle", "square", "triangle", etc...)
+  - `alpha`: Controls the level of transparency of points/lines/fills.
+  - `lwd`: Line width.
+  - `lty`: Line type ("solid", "dashed", "dotted", etc...).
+  - `facets`: Split up the data into multiple plots.
+]
+
+---
+
+# Loading tidyverse
+
+.font130[
+```{r, tidy=FALSE}
+# Load tidyverse
+library(tidyverse)
+```
+]
+
+---
+
+# Loading datasets
+
+.font130[
+```{r, tidy=FALSE}
+# Loading tips dataset
+tips <- read.csv('https://raw.githubusercontent.com/umbertomig/qtm150/master/datasets/tips.csv')
+head(tips, 2)
+
+# Loading PErisk dataset
+PErisk <- read.csv('https://raw.githubusercontent.com/umbertomig/qtm150/master/datasets/PErisk.csv')
+head(PErisk, 2)
+```
+]
+
+---
+
+class: inverse, center, middle
+
+# Plots for Continuous Variables
+
+<html><div style='float:left'></div><hr color='#f2a900' size=1px width=720px></html> 
+
+---
+
+# qplot - Histograms
+
+.font130[
+
+```{r, tidy=FALSE, fig.align='center', fig.height=5, fig.width=5}
+qplot(PErisk$gdpw2, geom = "histogram", bins = 10)
+```
+
+* **Your turn**: make a histogram of the `tip` variable in the `tips` dataset.
+
+]
+
+---
+
+# qplot - Density-plots
+
+.font130[
+
+```{r, tidy=FALSE, fig.align='center', fig.height=5, fig.width=5}
+qplot(PErisk$barb2, geom = "density")
+```
+
+* **Your turn**: make a density plot of the `totbill` variable in the `tips` dataset.
+
+]
+
+---
+
+
+# qplot - Box-plots
+
+.font130[
+
+```{r, tidy=FALSE, fig.align='center', fig.height=5, fig.width=5}
+# Box-plot of log of per capita gdp
+qplot(y = PErisk$gdpw2, geom = "boxplot")
+```
+
+* **Your turn**: make a boxplot of the `totbill` variable in the `tips` dataset.
+
+]
+
+---
+
+class: inverse, center, middle
+
+# Plot for Discrete Variables
+
+<html><div style='float:left'></div><hr color='#f2a900' size=1px width=720px></html> 
+
+---
+
+# qplot - Bar-Plots
+
+.font130[
+
+```{r, tidy=FALSE, fig.align='center', fig.height=5, fig.width=5}
+# Bar-plot of courts
+qplot(factor(PErisk$courts), geom = "bar")
+```
+
+* **Your turn**: make a bar-plot of the `smoker` variable in the `tips` dataset.
+
+]
+
+---
+
+class: inverse, center, middle
+
+# Plot for two Continuous Variables
+
+<html><div style='float:left'></div><hr color='#f2a900' size=1px width=720px></html> 
+
+---
+
+# qplot - Scatter-Plot
+
+.font130[
+
+```{r, tidy=FALSE, fig.align='center', fig.height=5, fig.width=5}
+qplot(PErisk$barb2, PErisk$gdpw2, geom = "point") 
+```
+
+* **Your turn**: make a Scatter-Plot for the `totbill` and the `tips` variables in the `tips` dataset.
+
+]
+
+---
+
+# qplot - Scatter-Plot (with smooth)
+
+.font130[
+
+```{r, tidy=FALSE, fig.align='center', fig.height=5, fig.width=5, warning=FALSE}
+qplot(PErisk$barb2, PErisk$gdpw2, geom = "point") +
+  geom_rug() + geom_smooth()
+```
+
+* **Your turn**: make a Scatter-Plot with smooth line for the `totbill` and the `tips` variables in the `tips` dataset.
+
+]
+
+---
+
+# qplot - Scatter-Plot (segmented)
+
+.font130[
+
+```{r, tidy=FALSE, fig.align='center', fig.height=5, fig.width=8, warning=FALSE}
+qplot(PErisk$barb2, PErisk$gdpw2, geom = "point", color = factor(PErisk$courts))
+```
+
+* **Your turn**: make a segmented scatter-plot with smooth line for the `totbill` and the `tips`, by `smoker`.
+]
+
+---
+# qplot - Scatter-Plot (faceted)
+
+.font130[
+
+```{r, tidy=FALSE, fig.align='center', fig.height=5, fig.width=8, warning=FALSE}
+qplot(barb2, gdpw2, geom = "point", facets = . ~ courts, data = PErisk)
+```
+
+* **Your turn**: make a faceted scatter-plot for the `totbill` and the `tips`, faceting by `smoker`.
+]
+
+---
+
+class: inverse, center, middle
+
+# Plot for Continuous x Discrete Variables
+
+<html><div style='float:left'></div><hr color='#f2a900' size=1px width=720px></html> 
+
+---
+
+# qplot - Multiple Box-Plots
+
+.font130[
+
+```{r, tidy=FALSE, fig.align='center', fig.height=5, fig.width=5}
+qplot(x = factor(PErisk$courts), y = PErisk$gdpw2, 
+      geom = "boxplot")
+```
+
+* **Your turn**: make a box-plot of the `tips` variable by `smoker` in the `tips` dataset.
+
+]
+
+---
+
+class: inverse, center, middle
+
+# Questions?
+
+<html><div style='float:left'></div><hr color='#f2a900' size=1px width=720px></html> 
+
+---
+
+class: inverse, center, middle
+
+# Have a great weekend!
+
+<html><div style='float:left'></div><hr color='#f2a900' size=1px width=720px></html>
