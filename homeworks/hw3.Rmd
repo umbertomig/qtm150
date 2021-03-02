@@ -1,0 +1,62 @@
+---
+title: "Homework 3 -- QTM 150"
+author: "Your name here"
+output: html_document
+---
+
+## Instructions:
+
+**Due:** 03/09 at 11:59PM.
+
+**What am I expecting?** An R Markdown and the compiled HTML with the answers.
+
+**Have fun!**
+
+## Homework 3
+
+**1** (1 pt). Import the dataset `LifetimeBoxOffice.csv` and answer: how many observations and variables are included in this file?
+
+Hint: start by loading the data. There are two methods:
+
+1. From GitHub
+2. From a locale folder.
+
+To use the first method, you have to go to our GitHub page, and load the file as raw. Our GitHub page is here: https://github.com/umbertomig/qtm150
+
+To use the second method, you need to download the file and put in the same folder as this RMarkdown.
+
+```{r}
+# your answers here
+```
+
+**2** (1 pt). Which movies are ranked in top 10 in terms of LifetimeGross? Print only the name of the movies and LifetimeGross for each movie. (Hint: the dataset is already order by LifetimeGross.)
+
+```{r}
+# your answers here
+```
+
+**3** (2 pt). Print the movies (observations) that earned over a total of one billion dollars of LifetimeGross. (Hint: to select a subset of the data, try `help(subset)`, and see how the function subset works...)
+
+```{r}
+# your answers here
+```
+
+**4** (2 pt). Which movies released in 2019 made this list of top 200 movies? Create a subset of LBO containing only the movies released in 2019. (Hint: again, try `help(subset)`, and see how the function works. Also, one equal sign is attribution, two equal signs mean comparison...)
+
+```{r}
+# your answers here
+```
+
+**5** (2 pt). What is the mean and the standard deviation of LifetimeGross for the movies released in 2019?
+
+```{r}
+# your answers here
+```
+
+**6** (2 pt). Generate an appropriate plot showing LifetimeGross (response variable) by Year (explanatory variable). Describe in your own words the relationship between the two variables.
+
+```{r}
+# your answers here
+```
+
+__your explanations here__
