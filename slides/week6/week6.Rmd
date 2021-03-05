@@ -51,6 +51,7 @@ options(repos = r)
   color: #f2a900;
 }
 </style>
+
 # Recap
 
 .font150[
@@ -236,17 +237,17 @@ gss100$marital[1:10]
 ---
 
 # R-Base plots
+
 .font130[
 
 We learned `qplot` in the previous class. However, if you need quick (but sadly ugly) plots, you use the R-Base plots.
 
-Here we are going to do a few of these plots.
-
 Histograms:
 
-```{r}
+```{r, fig.align='center', fig.height=6, fig.width=6}
 hist(gss100$age)
 ```
+]
 
 ---
 
@@ -256,9 +257,10 @@ hist(gss100$age)
 
 Barplots:
 
-```{r}
+```{r, fig.align='center', fig.height=6, fig.width=6}
 barplot(table(gss100$marital))
 ```
+]
 
 ---
 
@@ -268,9 +270,11 @@ barplot(table(gss100$marital))
 
 Boxplots (comparing numerical and categorical):
 
-```{r}
+```{r, fig.align='center', fig.height=6, fig.width=6}
 boxplot(gss100$age~gss100$sex)
 ```
+
+]
 
 ---
 
