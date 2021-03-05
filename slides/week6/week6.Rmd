@@ -1,0 +1,289 @@
+---
+title: "QTM 150"
+subtitle: "Week 6 -- Working with Data <html><div style='float:left'></div><hr color='#f2a900' size=1px width=800px></html>"
+author: "Umberto Mignozzetti"
+date: "Mar 05"
+output: 
+  xaringan::moon_reader:
+    css: [default, metropolis, metropolis-fonts]
+    mathjax: "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_HTMLorMML"
+    nature: 
+      beforeInit: "https://raw.githubusercontent.com/umbertomig/qtm151/main/slides/wmisc/macros.js"
+      highlightStyle: github
+      ratio: 4:3
+      highlightLines: true
+      countIncrementalSlides: false
+      slideNumberFormat: |
+        <div class="progress-bar-container">
+          <div class="progress-bar" style="width: calc(%current% / %total% * 100%);">
+          </div>
+        </div>
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+r <- getOption("repos")
+r["CRAN"] <- "http://cran.cnr.berkeley.edu/"
+options(repos = r)
+```
+
+<style>
+
+.remark-slide-number {
+  position: inherit;
+}
+
+.remark-slide-number .progress-bar-container {
+  position: absolute;
+  bottom: 0;
+  height: 6px;
+  display: block;
+  left: 0;
+  right: 0;
+}
+
+.remark-slide-number .progress-bar {
+  height: 100%;
+  background-color: #f2a900;
+}
+
+.orange {
+  color: #f2a900;
+}
+</style>
+# Recap
+
+.font150[
+
+You now know:
+
+* The main objects in R.
+* How to do basic operations with datasets.
+* How to create graphs and plots.
+
+**Great job!!**
+
+Do you have any questions?
+
+**Reminder:** The quiz for this class will be posted at 4:00PM. The quiz is due Monday, 11:59 PM.
+
+]
+
+---
+
+# Today's Agenda
+
+.font150[
+
+Today we will learn how to work with data.
+
+* We will repeat some of the things that we did on DataCamp.
+
+* This lab will reinforce the DataCamp learning, while helping you improve some gaps in your knowledge.
+
+* Please ask questions!
+
+]
+
+---
+
+class: inverse, center, middle
+
+# Importing and Saving Data
+
+<html><div style='float:left'></div><hr color='#f2a900' size=1px width=720px></html> 
+
+---
+
+# Importing and Saving Data
+
+.font130[
+
+Importing data from GitHub is easy. Let's do another time in here?
+
+```{r}
+gss <- read.csv('https://raw.githubusercontent.com/umbertomig/qtm150/master/datasets/gss.csv')
+
+# Checking dimension
+dim(gss) # This dataset contains 53474 rows and 14 variables
+```
+
+If GitHub does not work for you, use it in locale: download it to your computer.
+]
+
+---
+
+# Importing and Saving Data
+
+.font130[
+
+If the dataset is big, you can always work with a chunk of it to get your coding up and running.
+
+* This has the huge advantage of making things faster.
+
+```{r}
+# Random number seed
+set.seed(123) # This is not strictly required
+
+# Extracting a chunk
+gss100<-gss[sample(nrow(gss),100),] 
+dim(gss100) 
+```
+
+And we can now save our dataset in our computer.
+
+]
+
+---
+
+
+# Importing and Saving Data
+
+.font130[
+
+To save the dataset, we need the function `write.csv`. Let's check this function, and save our subsample?!
+
+```{r}
+# Check your working directory
+getwd() #be sure to check your working directory!
+
+# Save a new dataset in your working directory
+write.csv(gss100, "smallgss.csv")
+```
+
+We can go ahead and check the folder to see if the dataset is there!
+
+]
+
+---
+
+# Observing our data
+
+.font130[
+
+```{r}
+# Print variable names
+names(gss100)
+
+# Print dataset dimension
+dim(gss100)
+
+# Print summary
+summary(gss100)
+```
+
+]
+
+---
+
+# Observing our data
+
+.font130[
+
+```{r}
+# First observations
+head(gss100)
+
+# Last observations
+tail(gss100)
+
+# Missing data (very important!)
+sum(is.na(gss$age))
+
+# Learning about a function that we have not used before...
+?is.na
+```
+
+]
+
+---
+
+# Extracting parts
+
+.font130[
+
+Remember that a data.frame has the similar structure as a matrix [rows, columns], and each variable is a vector.
+
+```{r}
+#dataset[row, column]
+gss100[1,2]
+
+# dataset[rows, columns]
+gss100[1:5, c(2,5)] 
+```
+
+]
+
+---
+
+# Extracting parts
+
+.font130[
+
+Remember that a data.frame has the similar structure as a matrix [rows, columns], and each variable is a vector.
+
+```{r}
+#dataset$variable, the whole column
+gss100[,7]
+gss100$marital
+
+# dataset$variable[rows]
+gss100$marital[1:10]
+```
+
+]
+
+---
+
+# R-Base plots
+.font130[
+
+We learned `qplot` in the previous class. However, if you need quick (but sadly ugly) plots, you use the R-Base plots.
+
+Here we are going to do a few of these plots.
+
+Histograms:
+
+```{r}
+hist(gss100$age)
+```
+
+---
+
+# R-Base plots
+
+.font130[
+
+Barplots:
+
+```{r}
+barplot(table(gss100$marital))
+```
+
+---
+
+# R-Base plots
+
+.font130[
+
+Boxplots (comparing numerical and categorical):
+
+```{r}
+boxplot(gss100$age~gss100$sex)
+```
+
+---
+
+class: inverse, center, middle
+
+# Questions?
+
+<html><div style='float:left'></div><hr color='#f2a900' size=1px width=720px></html> 
+
+---
+
+class: inverse, center, middle
+
+# Have a great weekend!
+
+<html><div style='float:left'></div><hr color='#f2a900' size=1px width=720px></html>

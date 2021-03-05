@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>QTM 150</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Umberto Mignozzetti" />
+    <script src="week6_files/header-attrs/header-attrs.js"></script>
+    <link href="week6_files/remark-css/default.css" rel="stylesheet" />
+    <link href="week6_files/remark-css/metropolis.css" rel="stylesheet" />
+    <link href="week6_files/remark-css/metropolis-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# QTM 150
+## Week 6 – Working with Data
+<html>
+<div style="float:left">
+
+</div>
+<hr color='#f2a900' size=1px width=800px>
+</html>
+### Umberto Mignozzetti
+### Mar 05
+
+---
+
+
+
+
+&lt;style&gt;
+
+.remark-slide-number {
+  position: inherit;
+}
+
+.remark-slide-number .progress-bar-container {
+  position: absolute;
+  bottom: 0;
+  height: 6px;
+  display: block;
+  left: 0;
+  right: 0;
+}
+
+.remark-slide-number .progress-bar {
+  height: 100%;
+  background-color: #f2a900;
+}
+
+.orange {
+  color: #f2a900;
+}
+&lt;/style&gt;
+# Recap
+
+.font150[
+
+You now know:
+
+* The main objects in R.
+* How to do basic operations with datasets.
+* How to create graphs and plots.
+
+**Great job!!**
+
+Do you have any questions?
+
+**Reminder:** The quiz for this class will be posted at 4:00PM. The quiz is due Monday, 11:59 PM.
+
+]
+
+---
+
+# Today's Agenda
+
+.font150[
+
+Today we will learn how to work with data.
+
+* We will repeat some of the things that we did on DataCamp.
+
+* This lab will reinforce the DataCamp learning, while helping you improve some gaps in your knowledge.
+
+* Please ask questions!
+
+]
+
+---
+
+class: inverse, center, middle
+
+# Importing and Saving Data
+
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#f2a900' size=1px width=720px&gt;&lt;/html&gt; 
+
+---
+
+# Importing and Saving Data
+
+.font130[
+
+Importing data from GitHub is easy. Let's do another time in here?
+
+
+```r
+gss &lt;- read.csv('https://raw.githubusercontent.com/umbertomig/qtm150/master/datasets/gss.csv')
+
+# Checking dimension
+dim(gss) # This dataset contains 53474 rows and 14 variables
+```
+
+```
+## [1] 53474    13
+```
+
+If GitHub does not work for you, use it in locale: download it to your computer.
+]
+
+---
+
+# Importing and Saving Data
+
+.font130[
+
+If the dataset is big, you can always work with a chunk of it to get your coding up and running.
+
+* This has the huge advantage of making things faster.
+
+
+```r
+# Random number seed
+set.seed(123) # This is not strictly required
+
+# Extracting a chunk
+gss100&lt;-gss[sample(nrow(gss),100),] 
+dim(gss100) 
+```
+
+```
+## [1] 100  13
+```
+
+And we can now save our dataset in our computer.
+
+]
+
+---
+
+
+# Importing and Saving Data
+
+.font130[
+
+To save the dataset, we need the function `write.csv`. Let's check this function, and save our subsample?!
+
+
+```r
+# Check your working directory
+getwd() #be sure to check your working directory!
+```
+
+```
+## [1] "/Users/umbertomignozzetti/Dropbox/Academic/Teaching/2021/QTM150/qtm150/slides/week6"
+```
+
+```r
+# Save a new dataset in your working directory
+write.csv(gss100, "smallgss.csv")
+```
+
+We can go ahead and check the folder to see if the dataset is there!
+
+]
+
+---
+
+# Observing our data
+
+.font130[
+
+
+```r
+# Print variable names
+names(gss100)
+```
+
+```
+##  [1] "region"   "income"   "happy"    "age"      "finrela"  "marital" 
+##  [7] "degree"   "health"   "wrkstat"  "partyid"  "polviews" "sex"     
+## [13] "year"
+```
+
+```r
+# Print dataset dimension
+dim(gss100)
+```
+
+```
+## [1] 100  13
+```
+
+```r
+# Print summary
+summary(gss100)
+```
+
+```
+##     region             income             happy                age       
+##  Length:100         Length:100         Length:100         Min.   :19.00  
+##  Class :character   Class :character   Class :character   1st Qu.:33.00  
+##  Mode  :character   Mode  :character   Mode  :character   Median :46.00  
+##                                                           Mean   :47.88  
+##                                                           3rd Qu.:62.00  
+##                                                           Max.   :89.00  
+##                                                           NA's   :1      
+##    finrela            marital             degree             health         
+##  Length:100         Length:100         Length:100         Length:100        
+##  Class :character   Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+##                                                                             
+##                                                                             
+##                                                                             
+##                                                                             
+##    wrkstat            partyid            polviews             sex           
+##  Length:100         Length:100         Length:100         Length:100        
+##  Class :character   Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+##                                                                             
+##                                                                             
+##                                                                             
+##                                                                             
+##       year     
+##  Min.   :1973  
+##  1st Qu.:1984  
+##  Median :1994  
+##  Mean   :1993  
+##  3rd Qu.:2002  
+##  Max.   :2010  
+## 
+```
+
+]
+
+---
+
+# Observing our data
+
+.font130[
+
+
+```r
+# First observations
+head(gss100)
+```
+
+```
+##                region         income        happy age       finrela
+## 51663 E. NOR. CENTRAL $25000 OR MORE PRETTY HAPPY  79       AVERAGE
+## 2986  E. NOR. CENTRAL $15000 - 19999   VERY HAPPY  38       AVERAGE
+## 29925        MOUNTAIN $25000 OR MORE PRETTY HAPPY  43 ABOVE AVERAGE
+## 29710 W. SOU. CENTRAL $25000 OR MORE PRETTY HAPPY  66 ABOVE AVERAGE
+## 37529         PACIFIC $25000 OR MORE PRETTY HAPPY  42       AVERAGE
+## 2757  W. SOU. CENTRAL $10000 - 14999   VERY HAPPY  33       AVERAGE
+##             marital      degree    health          wrkstat            partyid
+## 51663       MARRIED HIGH SCHOOL       IAP          RETIRED NOT STR REPUBLICAN
+## 2986        MARRIED HIGH SCHOOL      GOOD    KEEPING HOUSE  STRONG REPUBLICAN
+## 29925 NEVER MARRIED    BACHELOR      &lt;NA&gt; WORKING FULLTIME        OTHER PARTY
+## 29710       MARRIED HIGH SCHOOL EXCELLENT          RETIRED NOT STR REPUBLICAN
+## 37529       MARRIED HIGH SCHOOL      FAIR WORKING FULLTIME        INDEPENDENT
+## 2757        MARRIED HIGH SCHOOL EXCELLENT    KEEPING HOUSE   NOT STR DEMOCRAT
+##                   polviews    sex year
+## 51663 EXTRMLY CONSERVATIVE   MALE 2010
+## 2986          CONSERVATIVE FEMALE 1974
+## 29925              LIBERAL   MALE 1994
+## 29710 SLGHTLY CONSERVATIVE   MALE 1994
+## 37529     SLIGHTLY LIBERAL FEMALE 2000
+## 2757          CONSERVATIVE FEMALE 1974
+```
+
+```r
+# Last observations
+tail(gss100)
+```
+
+```
+##                region         income        happy age           finrela
+## 36717         PACIFIC $25000 OR MORE PRETTY HAPPY  30 FAR ABOVE AVERAGE
+## 28078         PACIFIC $25000 OR MORE PRETTY HAPPY  59           AVERAGE
+## 3833   SOUTH ATLANTIC $15000 - 19999   VERY HAPPY  58     ABOVE AVERAGE
+## 26028 W. SOU. CENTRAL  $7000 TO 7999 PRETTY HAPPY  34 FAR BELOW AVERAGE
+## 52653 W. SOU. CENTRAL $25000 OR MORE PRETTY HAPPY  46     BELOW AVERAGE
+## 43406 E. NOR. CENTRAL $25000 OR MORE         &lt;NA&gt;  35              &lt;NA&gt;
+##        marital      degree    health          wrkstat            partyid
+## 36717  MARRIED    BACHELOR EXCELLENT    KEEPING HOUSE  STRONG REPUBLICAN
+## 28078  MARRIED HIGH SCHOOL      GOOD    KEEPING HOUSE        INDEPENDENT
+## 3833   MARRIED HIGH SCHOOL EXCELLENT    KEEPING HOUSE  STRONG REPUBLICAN
+## 26028  MARRIED HIGH SCHOOL EXCELLENT WORKING FULLTIME NOT STR REPUBLICAN
+## 52653 DIVORCED HIGH SCHOOL EXCELLENT WORKING FULLTIME    STRONG DEMOCRAT
+## 43406  MARRIED    GRADUATE      &lt;NA&gt; WORKING FULLTIME  STRONG REPUBLICAN
+##                   polviews    sex year
+## 36717         CONSERVATIVE FEMALE 2000
+## 28078              LIBERAL FEMALE 1994
+## 3833          CONSERVATIVE FEMALE 1975
+## 26028 SLGHTLY CONSERVATIVE   MALE 1991
+## 52653              LIBERAL   MALE 2010
+## 43406                 &lt;NA&gt;   MALE 2004
+```
+
+```r
+# Missing data (very important!)
+sum(is.na(gss$age))
+```
+
+```
+## [1] 189
+```
+
+```r
+# Learning about a function that we have not used before...
+?is.na
+```
+
+]
+
+---
+
+# Extracting parts
+
+.font130[
+
+Remember that a data.frame has the similar structure as a matrix [rows, columns], and each variable is a vector.
+
+
+```r
+#dataset[row, column]
+gss100[1,2]
+```
+
+```
+## [1] "$25000 OR MORE"
+```
+
+```r
+# dataset[rows, columns]
+gss100[1:5, c(2,5)] 
+```
+
+```
+##               income       finrela
+## 51663 $25000 OR MORE       AVERAGE
+## 2986  $15000 - 19999       AVERAGE
+## 29925 $25000 OR MORE ABOVE AVERAGE
+## 29710 $25000 OR MORE ABOVE AVERAGE
+## 37529 $25000 OR MORE       AVERAGE
+```
+
+]
+
+---
+
+# Extracting parts
+
+.font130[
+
+Remember that a data.frame has the similar structure as a matrix [rows, columns], and each variable is a vector.
+
+
+```r
+#dataset$variable, the whole column
+gss100[,7]
+```
+
+```
+##   [1] "HIGH SCHOOL"    "HIGH SCHOOL"    "BACHELOR"       "HIGH SCHOOL"   
+##   [5] "HIGH SCHOOL"    "HIGH SCHOOL"    "JUNIOR COLLEGE" "BACHELOR"      
+##   [9] "HIGH SCHOOL"    "LT HIGH SCHOOL" "HIGH SCHOOL"    "HIGH SCHOOL"   
+##  [13] "HIGH SCHOOL"    "LT HIGH SCHOOL" "JUNIOR COLLEGE" "HIGH SCHOOL"   
+##  [17] "HIGH SCHOOL"    "LT HIGH SCHOOL" "HIGH SCHOOL"    "BACHELOR"      
+##  [21] "BACHELOR"       "HIGH SCHOOL"    "HIGH SCHOOL"    "HIGH SCHOOL"   
+##  [25] "HIGH SCHOOL"    "HIGH SCHOOL"    "BACHELOR"       "BACHELOR"      
+##  [29] "HIGH SCHOOL"    "HIGH SCHOOL"    "HIGH SCHOOL"    "LT HIGH SCHOOL"
+##  [33] "HIGH SCHOOL"    "BACHELOR"       "BACHELOR"       "LT HIGH SCHOOL"
+##  [37] "LT HIGH SCHOOL" "BACHELOR"       "HIGH SCHOOL"    "HIGH SCHOOL"   
+##  [41] "HIGH SCHOOL"    "BACHELOR"       "LT HIGH SCHOOL" "JUNIOR COLLEGE"
+##  [45] "HIGH SCHOOL"    "JUNIOR COLLEGE" "GRADUATE"       "HIGH SCHOOL"   
+##  [49] "LT HIGH SCHOOL" "HIGH SCHOOL"    "HIGH SCHOOL"    "HIGH SCHOOL"   
+##  [53] "JUNIOR COLLEGE" "HIGH SCHOOL"    "GRADUATE"       "LT HIGH SCHOOL"
+##  [57] "HIGH SCHOOL"    NA               "BACHELOR"       "HIGH SCHOOL"   
+##  [61] "GRADUATE"       "JUNIOR COLLEGE" "LT HIGH SCHOOL" "HIGH SCHOOL"   
+##  [65] "HIGH SCHOOL"    "LT HIGH SCHOOL" "JUNIOR COLLEGE" "LT HIGH SCHOOL"
+##  [69] "HIGH SCHOOL"    "LT HIGH SCHOOL" "LT HIGH SCHOOL" "HIGH SCHOOL"   
+##  [73] "LT HIGH SCHOOL" "GRADUATE"       "HIGH SCHOOL"    "BACHELOR"      
+##  [77] "GRADUATE"       "BACHELOR"       "LT HIGH SCHOOL" "HIGH SCHOOL"   
+##  [81] "HIGH SCHOOL"    "LT HIGH SCHOOL" "HIGH SCHOOL"    "HIGH SCHOOL"   
+##  [85] "HIGH SCHOOL"    "HIGH SCHOOL"    "HIGH SCHOOL"    "LT HIGH SCHOOL"
+##  [89] "HIGH SCHOOL"    "HIGH SCHOOL"    "LT HIGH SCHOOL" "LT HIGH SCHOOL"
+##  [93] "GRADUATE"       "HIGH SCHOOL"    "BACHELOR"       "HIGH SCHOOL"   
+##  [97] "HIGH SCHOOL"    "HIGH SCHOOL"    "HIGH SCHOOL"    "GRADUATE"
+```
+
+```r
+gss100$marital
+```
+
+```
+##   [1] "MARRIED"       "MARRIED"       "NEVER MARRIED" "MARRIED"      
+##   [5] "MARRIED"       "MARRIED"       "MARRIED"       "MARRIED"      
+##   [9] "MARRIED"       "MARRIED"       "NEVER MARRIED" "MARRIED"      
+##  [13] "NEVER MARRIED" "WIDOWED"       "WIDOWED"       "MARRIED"      
+##  [17] "MARRIED"       "MARRIED"       "MARRIED"       "NEVER MARRIED"
+##  [21] "MARRIED"       "NEVER MARRIED" "MARRIED"       "MARRIED"      
+##  [25] "SEPARATED"     "MARRIED"       "MARRIED"       "MARRIED"      
+##  [29] "DIVORCED"      "MARRIED"       "NEVER MARRIED" "MARRIED"      
+##  [33] "MARRIED"       "MARRIED"       "WIDOWED"       "DIVORCED"     
+##  [37] "WIDOWED"       "MARRIED"       "NEVER MARRIED" "NEVER MARRIED"
+##  [41] "MARRIED"       "MARRIED"       "DIVORCED"      "SEPARATED"    
+##  [45] "DIVORCED"      "MARRIED"       "MARRIED"       "NEVER MARRIED"
+##  [49] "DIVORCED"      "WIDOWED"       "NEVER MARRIED" "MARRIED"      
+##  [53] "MARRIED"       "NEVER MARRIED" "MARRIED"       "WIDOWED"      
+##  [57] "NEVER MARRIED" "DIVORCED"      "MARRIED"       "MARRIED"      
+##  [61] "DIVORCED"      "DIVORCED"      "SEPARATED"     "MARRIED"      
+##  [65] "DIVORCED"      "MARRIED"       "MARRIED"       "MARRIED"      
+##  [69] "NEVER MARRIED" "WIDOWED"       "MARRIED"       "MARRIED"      
+##  [73] "SEPARATED"     "WIDOWED"       "MARRIED"       "NEVER MARRIED"
+##  [77] "NEVER MARRIED" "NEVER MARRIED" "MARRIED"       "MARRIED"      
+##  [81] "DIVORCED"      "MARRIED"       "MARRIED"       "MARRIED"      
+##  [85] "MARRIED"       "DIVORCED"      "NEVER MARRIED" "MARRIED"      
+##  [89] "MARRIED"       "WIDOWED"       "MARRIED"       "NEVER MARRIED"
+##  [93] "MARRIED"       "MARRIED"       "MARRIED"       "MARRIED"      
+##  [97] "MARRIED"       "MARRIED"       "DIVORCED"      "MARRIED"
+```
+
+```r
+# dataset$variable[rows]
+gss100$marital[1:10]
+```
+
+```
+##  [1] "MARRIED"       "MARRIED"       "NEVER MARRIED" "MARRIED"      
+##  [5] "MARRIED"       "MARRIED"       "MARRIED"       "MARRIED"      
+##  [9] "MARRIED"       "MARRIED"
+```
+
+]
+
+---
+
+# R-Base plots
+.font130[
+
+We learned `qplot` in the previous class. However, if you need quick (but sadly ugly) plots, you use the R-Base plots.
+
+Here we are going to do a few of these plots.
+
+Histograms:
+
+
+```r
+hist(gss100$age)
+```
+
+![](week6_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
+
+---
+
+# R-Base plots
+
+.font130[
+
+Barplots:
+
+
+```r
+barplot(table(gss100$marital))
+```
+
+![](week6_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+
+---
+
+# R-Base plots
+
+.font130[
+
+Boxplots (comparing numerical and categorical):
+
+
+```r
+boxplot(gss100$age~gss100$sex)
+```
+
+![](week6_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+
+---
+
+class: inverse, center, middle
+
+# Questions?
+
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#f2a900' size=1px width=720px&gt;&lt;/html&gt; 
+
+---
+
+class: inverse, center, middle
+
+# Have a great weekend!
+
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#f2a900' size=1px width=720px&gt;&lt;/html&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="https://raw.githubusercontent.com/umbertomig/qtm151/main/slides/wmisc/macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"ratio": "4:3",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"slideNumberFormat": "<div class=\"progress-bar-container\">\n  <div class=\"progress-bar\" style=\"width: calc(%current% / %total% * 100%);\">\n  </div>\n</div>"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_HTMLorMML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
