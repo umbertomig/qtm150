@@ -1,0 +1,42 @@
+---
+title: "Homework 4 -- QTM 150"
+author: "Your name here"
+output: html_document
+---
+
+
+```{r, include=FALSE}
+library(tidyverse)
+```
+
+## Homework 3
+
+**1** (2 pt). Install the package `babynames` in your computer. Then, load the package in the R chunk below.
+
+```{r}
+# Your answers here
+```
+
+**2** (2 pt). The `babynames` package sometimes does not show in the environment, but it is there (type `babynames` to check). How many babynames we have in the dataset?
+
+```{r}
+# Your answers here
+```
+
+**3** (2 pt). Print the head and the tail of the `babynames` dataset.
+
+```{r}
+# Your answers here
+```
+
+**4** (2 pt). Make a barplot of the number of babynames each year (hint: it is going to look ugly because there are many years...)
+
+```{r}
+# Your answers here
+```
+
+**5** (2 pt). The babyname in the position 1333029 is Charlotte in 2000. Print the all the variables for the Charlotte in this position.
+
+```{r}
+# Your answers here
+```
