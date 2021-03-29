@@ -1,0 +1,39 @@
+---
+title: "Homework 5 -- QTM 150"
+author: "Your name here"
+output: html_document
+---
+
+## Homework 5
+
+**1** (2 pt). Load the packages `tidyverse`. Load the dataset `gss.csv` (check the class GitHub / Canvas). To load the dataset, use the function `read_csv`, from the `tidyverse` library.
+
+```{r}
+# Your code here
+```
+
+**2** (2 pt). Check the head and the tail of the dataset. How many observations the `gss` dataset has?
+
+```{r}
+# Your code here
+```
+
+**3** (2 pt). To create a table of a variable, you need to use the command `table(variable_name)`. Create a table of the `region` variable in the dataset `gss`.
+
+```{r}
+# Your code here
+```
+
+**4** (2 pt). Create a subsample of the dataset, with only people from the `SOUTH ATLANTIC` region. Then, using the subsampled dataset, create a table of the variable `happy`. Would you say that people living in the south atlantic are happy?
+
+```{r}
+# Your code here
+```
+
+**5** (2 pt). In what region people are, on average, older? (Hint: use group_by + summarize. Hint 2: There is missing data in the age. You should use `mean(age, na.rm = T)`. Hint 3: `NOT ASSIGNED` is not a region. It should be removed before using group_by + summarize. To remove, remember that the way to say different in R is `!=`)
+
+```{r}
+# Your code here
+```
+
+_Your answer here_
