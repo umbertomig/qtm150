@@ -1,0 +1,83 @@
+---
+title: "Midterm -- QTM 150"
+author: "Your name here"
+output: html_document
+---
+
+## Midterm
+
+**1** (1 pt). Load the package `tidyverse`.
+
+```{r}
+# Your code here
+```
+
+**2** (1 pt). On GitHub, and on Canvas, you can find the dataset `corona.csv`. Load this dataset. How many observations does it have?
+
+```{r}
+# Your code here
+```
+
+**3** (1 pt). Display the head and the tail of the dataset?
+
+```{r}
+# Your code here
+```
+
+**4** (1 pt). Compute the summary statistics for all variables in the dataset. Do the results make sense? Are there any variables that the summary seem weird? What about missing data? Is there a variable with more than 100 cases missing?
+
+```{r}
+# Your code here
+```
+
+_your explanations here_
+
+**5** (1 pt). For this question you will plot two histograms:
+
+1. (0.5pt) Plot a histogram of the variable `cvd_death_rate`. The title of your histogram should be `COVID-19 Death Rate`. The x-axis should be labeled as `Death Rate`. Use the function `hist` for this plot.
+
+```{r}
+# Your code here
+```
+
+2. Plot a histogram of the variable `diabetes_prevalence`. The title of your histogram should be `Diabetes Prevalence`. The x-axis should be labeled as `Proportion of Population with Diabetes`. Use the function `qplot` for this plot. Set bins to be equal to 20.
+
+```{r}
+# Your code here
+```
+
+**6** (1 pt) Check the COVID mean and standard deviation COVID mortality rate by continent. Sort the results by mean. Which continent is doing better in terms of less mortality rates? Based on what you know about COVID, does that make any sense? Are there weird values?
+
+```{r}
+# Your code here
+```
+
+_your interpretation here_
+
+**7** (1 pt) Which row of the dataset has no info about the continent. Why is that? Display this line. Then, remove it from the dataset. (hint: use `is.na(...)` to find the position, and `!is.na(...)` to all but the position with the NA.)
+
+```{r}
+# Your code here
+```
+_your interpretation here_
+
+**8** (1 pt) A risk factor theory of COVID mortality emphasizes that the casualties are higher when you have an underlying disease. Using a plot, check whether the death rate is higher, the higher the prevalence of diabetes. Briefly explain your findings and your choice of graph.
+
+```{r}
+# Your code here
+```
+_Your interpretation here_
+
+**9** (1 pt) We have two variables for smokers: `female_smokers` and `male_smokers`. Create a new variable called `smokers` combining the two variables. Make one histogram for this new variable.
+
+```{r}
+# Your code here
+```
+
+**10** (1 pt) Using a plot answer to the following question: Are the corona death rates higher among smokers?
+
+```{r}
+# Your code here
+```
+
+_Your interpretation here_
