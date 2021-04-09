@@ -46,7 +46,7 @@ _your explanations here_
 # Your code here
 ```
 
-**6** (1 pt) Check the COVID mean and standard deviation COVID mortality rate by continent. Sort the results by mean. Which continent is doing better in terms of less mortality rates? Based on what you know about COVID, does that make any sense? Are there weird values?
+**6** (1 pt) Check the mean and standard deviation of COVID mortality rate by continent. Sort the results by mean. Which continent is doing better in terms of less mortality rates? Based on what you know about COVID, does that make any sense? Are there weird values?
 
 ```{r}
 # Your code here
