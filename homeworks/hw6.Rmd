@@ -1,0 +1,68 @@
+---
+title: "Homework 6 -- QTM 150"
+author: "Your name here"
+output: html_document
+---
+
+## Homework 6
+
+**1** (2 pt). Load the packages `tidyverse`. Load the dataset `voteincome.csv` (check the class GitHub / Canvas). To load the dataset, use the function `read_csv`, from the `tidyverse` library.
+
+```{r}
+# Your answers here
+```
+
+The dataset has the following informations:
+
+* **VoteIncome**:
+
+>Sample Turnout and Demographic Data from the 2000 Current Population Survey
+>
+>This data set contains turnout and demographic data from a sample of respondents to the 2000 Current Population Survey (CPS). The states represented are South Carolina and Arkansas. The data represent only a sample and results from this example should not be used in publication.
+>
+>
+>Format
+A data frame containing 7 variables ("state", "year", "vote", "income", "education", "age", "female") and 1500 observations.
+>
+>vote
+>an integer vector taking on values "1" (Voted) and "0" (Did Not Vote)
+>
+>income
+>an integer vector ranging from "4" (Less than \$5000) to "17" (Greater than \$75000) denoting family income. See the CPS codebook for more information on variable coding
+>
+>education
+>an integer vector ranging from "1" (Less than High School Education) to "4" (More than a College Education). See the CPS codebook for more information on variable coding
+>
+>References
+>https://www.census.gov/programs-surveys/cps.html
+>
+
+**2** (2 pt). Make a boxplot (or violin-plot) of income, segmented by education. What can you infer from this plot?
+
+```{r}
+# Your answers here
+```
+
+_Answers here_
+
+**3** (2 pt). Are more educated people more likely to vote? Check that by making a mosaic-plot of `vote` against `education`.
+
+```{r}
+# Your answers here
+```
+
+_Answer here_
+
+**4** (2 pt). Make a barplot of the variable `education`. Plot each bar using a different color.
+
+```{r}
+# Your answers here
+```
+
+**5** (2 pt). Make a plot to answer the following question: is there a relation between age and income? (Hint: the plot is going to look ugly. Add a trend line to see the relationship.)
+
+```{r}
+# Your answers here
+```
+
+_Answer here_
