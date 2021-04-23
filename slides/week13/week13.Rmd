@@ -1,0 +1,447 @@
+---
+title: "QTM 150"
+subtitle: "Week 13 -- Functions, Loops, and Other Programming <html><div style='float:left'></div><hr color='#f2a900' size=1px width=800px></html>"
+author: "Umberto Mignozzetti"
+date: "Apr 23"
+output: 
+  xaringan::moon_reader:
+    css: [default, metropolis, metropolis-fonts]
+    mathjax: "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_HTMLorMML"
+    nature: 
+      beforeInit: "https://raw.githubusercontent.com/umbertomig/qtm151/main/slides/wmisc/macros.js"
+      highlightStyle: github
+      ratio: 4:3
+      highlightLines: true
+      countIncrementalSlides: false
+      slideNumberFormat: |
+        <div class="progress-bar-container">
+          <div class="progress-bar" style="width: calc(%current% / %total% * 100%);">
+          </div>
+        </div>
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+r <- getOption("repos")
+r["CRAN"] <- "https://cloud.r-project.org/"
+options(repos = r)
+```
+
+<style>
+
+.remark-slide-number {
+  position: inherit;
+}
+
+.remark-slide-number .progress-bar-container {
+  position: absolute;
+  bottom: 0;
+  height: 6px;
+  display: block;
+  left: 0;
+  right: 0;
+}
+
+.remark-slide-number .progress-bar {
+  height: 100%;
+  background-color: #f2a900;
+}
+
+.orange {
+  color: #f2a900;
+}
+</style>
+
+# Recap
+
+.font130[
+
+You now know:
+
+* The main objects in R.
+* How to do basic operations with datasets.
+* How to create graphs and plots.
+* Data manipulation with `dplyr`.
+* Graphs with `ggplot`.
+
+**Great job!!**
+
+Do you have any questions?
+
+Today we are going to learn functions, loops, and elements of statistical programming!
+]
+
+---
+
+# This week
+
+.font130[
+
+We will have a **quiz** posted today after 4:00 PM. Due by **Monday**.
+
+We will **not** have a **problem set** this week. Focus on your final projects.
+
+Our GitHub page is: https://github.com/umbertomig/qtm150
+]
+
+---
+
+# Final Project
+
+.font130[
+
+The final projects are due by Apr 28 (Wednesday).
+
+Next class we will have our final project presentations. Make sure to come to class. 
+
+Next class is the only class that I require attendance synchronously. Sorry for the folks in different time zones, but this one is important.
+
+Make sure to upload your slides before Friday. Slides are due by Apr 29. I'll this deadline to Canvas later today.
+
+]
+
+---
+
+# Today's Agenda
+
+.font130[
+
+`if` statements
+
+`function` creation
+
+`for` loops
+
+]
+
+---
+
+class: inverse, center, middle
+
+# Getting Started
+
+<html><div style='float:left'></div><hr color='#f2a900' size=1px width=720px></html> 
+
+---
+
+# Getting Started: loading packages
+
+.font130[
+```{r}
+# Loading tidyverse
+library(tidyverse)
+```
+]
+
+---
+
+# Loading datasets
+
+.font130[
+```{r, tidy=FALSE}
+# Loading tips dataset
+tips <- read.csv('https://raw.githubusercontent.com/umbertomig/qtm150/master/datasets/tips.csv') # or your locale folder
+head(tips, 2)
+
+# Loading PErisk dataset
+PErisk <- read.csv('https://raw.githubusercontent.com/umbertomig/qtm150/master/datasets/PErisk.csv') # or your locale folder
+head(PErisk, 2)
+
+data(USArrests)
+```
+]
+
+---
+class: inverse, center, middle
+
+# if statements
+
+<html><div style='float:left'></div><hr color='#f2a900' size=1px width=720px></html> 
+
+---
+
+# if statements
+
+.font130[
+
+In statements control the flow of a code.
+
+They create a condition based on some variable, and execute a piece of code when the condition is `TRUE`.
+
+Example in pseudo-code:
+
+```
+if (number > 10) {
+  ...execute code for the bigger than 10 case...
+} else {
+  ...execute code for the smaller than or equals 10 case...
+}
+```
+
+]
+
+---
+
+# ifelse
+
+.font130[
+
+In R we have a function to conveniently build if-else statements.
+
+If-else consist in binary conditions: do something if true, or something else if false.
+
+Syntax: `ifelse(condition, code-if-true, code-if-false)`
+
+For example:
+
+```
+n = 4
+ifelse(n>2, n^2, n/5)
+
+n = 1
+ifelse(n>2, n^2, n/5)
+
+n = 2
+ifelse(n>2, n^2, n/5)
+```
+
+]
+
+---
+
+# ifelse
+
+.font130[
+
+More examples:
+
+```
+## no need to interact with the condition:
+n = 2
+ifelse(n>2, 'bigger than 2', 'smaller than or equal 2')
+
+## gender: vector operation
+gen <- c(0,0,0,1,1,0,1,1,1,0)
+ifelse(gen == 1, 'Fem', 'Masc')
+
+## gender: vector operation
+gen <- c(0,0,2,1,1,2,1,1,1,0)
+ifelse(gen == 1, 'F', ifelse(gen == 0, 'M', 'Non-binary'))
+```
+
+**Your turn**: in the tips dataset, take the variable `day`, and create a condition that shows whether the day is weekday or weekend.
+
+]
+
+---
+
+# "if - else if - else" statements
+
+.font130[
+
+There are statements that are bigger in nature than simple ifelse ones.
+
+Example in pseudo-code:
+
+```
+if (number > 10) {
+  ...execute code for the bigger than 10 case...
+} else if (number > 2 & number <= 10) {
+  ...execute code for this condition...
+} else {
+  ...execute code for otherwise...
+}
+```
+
+]
+
+---
+
+# "if - else if - else" statements
+
+.font130[
+
+Example:
+
+```{r}
+n = 20
+if(n==1) {
+  print('Number equals 1')
+} else if (n==2) {
+  print('Number equals 2')
+} else if (n==3) {
+  print('Number equals 3')
+} else if (n==4) {
+  print('Number equals 4')
+} else if (n<0) {
+  print('Number smaller than zero')
+} else {
+  print('Invalid number!')
+}
+```
+
+]
+
+---
+
+class: inverse, center, middle
+
+# functions
+
+<html><div style='float:left'></div><hr color='#f2a900' size=1px width=720px></html> 
+
+---
+
+# functions
+
+.font130[
+
+Sometimes we need to create our own functions.
+
+Create functions is simple. The syntax is straightforward:
+
+```
+name_function <- function(par1, par2, par3, ...) {
+  ...code execute...
+  return(...return smt...)
+}
+```
+
+Example in pseudo-code:
+
+```
+testn <- function(n) {
+  if (number > 10) {
+    ...execute code for the bigger than 10 case...
+  } else {
+    ...execute code for the smaller than or equals 10 case...
+  }
+  return(...smt...)
+}
+```
+
+]
+
+---
+
+
+# functions
+
+.font130[
+
+Example: BMI index function
+
+```{r}
+bmi <- function(w, h) {
+  bmi = w / (h^2)
+  return(bmi)
+}
+# BMI person 70 kg and 1.75 m
+bmi(70, 1.75)
+```
+
+**Your turn** create a function that receives weight in pounds and heights in inches and return the BMI.
+
+---
+
+class: inverse, center, middle
+
+# loops
+
+<html><div style='float:left'></div><hr color='#f2a900' size=1px width=720px></html> 
+
+---
+
+# loops
+
+.font130[
+
+There are two ways of creating loops: `while` and `for`.
+
+While loops are useful to run a piece of code until a condition is satisfied. For example:
+
+```
+i = 1
+while(i < 50) {
+  print(i)
+  print('i is smaller than 50!')
+  print(i^10)
+  i = i+1
+}
+```
+
+]
+
+
+---
+
+# loops
+
+.font130[
+
+Example: infinite loop:
+
+```
+while(TRUE) {
+  x = readline("Type something or break: ")
+  if(x == 'break'){
+    break
+  }
+  cat("You typed: ", x)
+}
+```
+
+]
+
+---
+
+# loops
+
+.font130[
+
+The `for` loop is a bit different: it receives a counter, and run until the counter is not exhausted.
+
+Example:
+
+```
+for (i in 1:10) {
+  print(i)
+  print(i^5)
+}
+```
+
+]
+
+---
+
+# loops
+
+.font130[
+
+Example: let's run over the columns of a dataset, and display the class of each variable:
+
+```
+for (i in names(tips)) {
+  print(class(tips[,i]))
+}
+```
+
+**Your turn**: Create a function that displays the summary of the numeric or integer variables, and table of the other variables.
+
+]
+
+---
+
+class: inverse, center, middle
+
+# Questions?
+
+<html><div style='float:left'></div><hr color='#f2a900' size=1px width=720px></html>
+
+---
+
+class: inverse, center, middle
+
+# Have a great weekend!
+
+<html><div style='float:left'></div><hr color='#f2a900' size=1px width=720px></html>
