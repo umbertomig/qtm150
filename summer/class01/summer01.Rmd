@@ -1,0 +1,221 @@
+---
+title: "QTM 150"
+subtitle: "Week 1 -- R Basics I <html><div style='float:left'></div><hr color='#f2a900' size=1px width=800px></html>"
+author: "Umberto Mignozzetti"
+date: "Summer"
+output: 
+  xaringan::moon_reader:
+    css: [default, metropolis, metropolis-fonts]
+    mathjax: "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_HTMLorMML"
+    nature: 
+      beforeInit: "https://raw.githubusercontent.com/umbertomig/qtm151/main/slides/wmisc/macros.js"
+      highlightStyle: github
+      ratio: 4:3
+      highlightLines: true
+      countIncrementalSlides: false
+      slideNumberFormat: |
+        <div class="progress-bar-container">
+          <div class="progress-bar" style="width: calc(%current% / %total% * 100%);">
+          </div>
+        </div>
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+r <- getOption("repos")
+r["CRAN"] <- "http://cran.cnr.berkeley.edu/"
+options(repos = r)
+```
+
+<style>
+
+.remark-slide-number {
+  position: inherit;
+}
+
+.remark-slide-number .progress-bar-container {
+  position: absolute;
+  bottom: 0;
+  height: 6px;
+  display: block;
+  left: 0;
+  right: 0;
+}
+
+.remark-slide-number .progress-bar {
+  height: 100%;
+  background-color: #f2a900;
+}
+
+.orange {
+  color: #f2a900;
+}
+</style>
+
+---
+
+class: inverse, center, middle
+
+# Welcome to QTM 150!
+
+<html><div style='float:left'></div><hr color='#f2a900' size=1px width=720px></html> 
+
+---
+
+# Today's Agenda
+
+.font150[
+
+About.
+
+Introductions.
+
+DataCamp.
+
+Why is it so hard to code?
+
+Installing and Getting Started with R and R Studio.
+
+]
+
+---
+
+# QTM150: Intro to Statistical Computing I
+
+.font150[
+This class will introduce you to Statistical Computing.
+
+We will work with R and R Studio to teach you:
+* How to load and process datasets.
+* How to compute new variables from old ones.
+* How to create cool data visualizations.
+
+All that in eight sessions!
+
+Let's check the syllabus?!
+]
+
+---
+
+class: inverse, center, middle
+
+# Introductions
+
+<html><div style='float:left'></div><hr color='#f2a900' size=1px width=720px></html> 
+
+---
+
+# Introductions
+
+.font150[
+My name is Umberto Mignozzetti.
+
+I am a Political Scientist with Ph.D. from NYU.
+
+My work concentrates on Comparative Political Economy, where I study how to improve welfare in developing countries.
+
+I am Brazilian, and I love watching and playing soccer (nowadays, mostly in my video game).
+
+More about me on [www.umbertomig.com](http://www.umbertomig.com).
+]
+
+---
+
+# Introductions
+
+.font150[
+What about you?
+
+* What is your name?
+
+* What is your major (current or planned)?
+
+* Tell me something cool about you.
+]
+
+---
+
+class: inverse, center, middle
+
+# DataCamp
+
+<html><div style='float:left'></div><hr color='#f2a900' size=1px width=720px></html> 
+
+---
+
+# DataCamp
+
+.font150[
+We partnered with DataCamp to provide you with extra training during this class.
+
+DataCamp will reinforce all the content you need to learn during the course.
+
+The advantage of DataCamp is that you don't need to have R in your machine to get started.
+
+Let's check my DataCamp?!
+
+]
+---
+
+# Why is it so hard to code?
+
+.font130[
+Can you read this sentence: 4 exampel in Ingli$h you kin get prackicly evRiThing rong-rong-rong and sti11 be undr3stud.
+
+You can do it because English is a *Natural Language*.
+
+R, Python, Julia, and other programming languages are formal languages.
+
+This means that you should pass the exact instructions to the computer to do what you want to get done.
+
+Learning how to program is to learn how to speak a very formal language with a thing that doesn't understand informal writing.
+
+In this sense, as with learning any language, practice makes it perfect!
+
+]
+
+---
+
+# R and R Studio
+
+.font150[
+R is the programming language that we are studying here.
+
+You probably have googled R and know its history and how widely it has been used.
+
+R Studio is **not** R! It is an Integrated Development Environment. Sort of a nice front-end to R.
+
+Let's install R and R Studio?!
+
+]
+
+---
+
+# R and R Studio
+
+.font150[
+Source editor x console.
+
+Files and working directory.
+
+Packages: expanding our R.
+
+How to get help?
+
+]
+
+---
+
+class: inverse, center, middle
+
+# Questions?
+
+<html><div style='float:left'></div><hr color='#f2a900' size=1px width=720px></html>
+
+---
+
+class: inverse, center, middle
+
+# See you in the next class!!
+
+<html><div style='float:left'></div><hr color='#f2a900' size=1px width=720px></html>

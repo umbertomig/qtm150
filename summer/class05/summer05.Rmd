@@ -1,0 +1,352 @@
+---
+title: "QTM 150"
+subtitle: "ggplot2 <html><div style='float:left'></div><hr color='#f2a900' size=1px width=800px></html>"
+author: "Umberto Mignozzetti"
+date: "Summer"
+output: 
+  xaringan::moon_reader:
+    css: [default, metropolis, metropolis-fonts]
+    mathjax: "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_HTMLorMML"
+    nature: 
+      beforeInit: "https://raw.githubusercontent.com/umbertomig/qtm151/main/slides/wmisc/macros.js"
+      highlightStyle: github
+      ratio: 4:3
+      highlightLines: true
+      countIncrementalSlides: false
+      slideNumberFormat: |
+        <div class="progress-bar-container">
+          <div class="progress-bar" style="width: calc(%current% / %total% * 100%);">
+          </div>
+        </div>
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+r <- getOption("repos")
+r["CRAN"] <- "https://cloud.r-project.org/"
+options(repos = r)
+```
+
+<style>
+
+.remark-slide-number {
+  position: inherit;
+}
+
+.remark-slide-number .progress-bar-container {
+  position: absolute;
+  bottom: 0;
+  height: 6px;
+  display: block;
+  left: 0;
+  right: 0;
+}
+
+.remark-slide-number .progress-bar {
+  height: 100%;
+  background-color: #f2a900;
+}
+
+.orange {
+  color: #f2a900;
+}
+</style>
+
+# Recap
+
+.font130[
+
+You now know:
+
+* The main objects in R.
+* How to do basic operations with datasets.
+* Numeric variable plots with ggplot2.
+
+**Great job!!**
+
+Do you have any questions?
+
+Today we are going to learn more **ggplot**!
+]
+
+---
+
+# This week
+
+.font130[
+
+We will have a **quiz** posted today. Due by **Monday**.
+
+Two chapters of the DataCamp course related to this content has been posted. They are due next week.
+
+Our GitHub page is: https://github.com/umbertomig/qtm150
+]
+
+---
+
+# Today's Agenda
+
+.font130[
+
+`ggplot2` graphs: 
+* Graphs for numeric variables (recap)
+* Graphs for discrete variables
+* Graphs for discrete x discrete variables
+* Graphs for discrete x numeric variables
+* Graphs for numeric x numeric variables
+]
+
+---
+
+class: inverse, center, middle
+
+# Getting Started
+
+<html><div style='float:left'></div><hr color='#f2a900' size=1px width=720px></html> 
+
+---
+
+# Getting Started: loading packages
+
+.font130[
+```{r}
+# Loading tidyverse
+library(tidyverse)
+```
+]
+
+---
+
+# Loading datasets
+
+.font130[
+```{r, tidy=FALSE}
+# Loading tips dataset
+tips <- read.csv('https://raw.githubusercontent.com/umbertomig/qtm150/master/datasets/tips.csv') # or your locale folder
+head(tips, 2)
+
+# Loading PErisk dataset
+PErisk <- read.csv('https://raw.githubusercontent.com/umbertomig/qtm150/master/datasets/PErisk.csv') # or your locale folder
+head(PErisk, 2)
+
+data(USArrests)
+```
+]
+
+---
+class: inverse, center, middle
+
+# ggplot underlying logic
+
+<html><div style='float:left'></div><hr color='#f2a900' size=1px width=720px></html> 
+
+---
+
+# ggplot underlying logic
+
+.font130[
+
+`ggplot` is based on the *grammar of graphs* idea. This idea emphasizes that all graphs are composed of three elements:
+
+* A dataset
+
+* A coordinated system (**mapping** and **aes**)
+
+* Geometric figures (**geom**s)
+
+From these elementary building blocks, we can build any graph we want.
+
+]
+
+---
+class: inverse, center, middle
+
+# Graphs for numeric variables
+
+<html><div style='float:left'></div><hr color='#f2a900' size=1px width=720px></html> 
+
+---
+
+# geom_histogram
+
+.font130[
+
+A histogram is a great graph for a numeric variable.
+
+In the dataset USArrests, we can have the histogram for the murder variable:
+
+```
+ggplot(data = USArrests) +
+  geom_histogram(mapping = aes(x = Murder), bins=15)
+```
+
+**Your turn:** Make a histogram of the variable *tip* in the dataset **tips**.
+
+]
+
+---
+
+class: inverse, center, middle
+
+# Graph for discrete variables
+
+<html><div style='float:left'></div><hr color='#f2a900' size=1px width=720px></html> 
+
+---
+
+# geom_bar
+
+.font130[
+
+A bar plot for the *courts* variable in the dataset **PErisk** would tell us how many countries had independent courts in 1992:
+
+```
+ggplot(data = PErisk) +
+  geom_bar(mapping = aes(x = courts))
+
+PErisk$courts = as.factor(PErisk$courts)
+levels(PErisk$courts) <- c('Non-independent', 'Independent')
+
+ggplot(data = PErisk) +
+  geom_bar(mapping = aes(x = courts))
+
+ggplot(data = PErisk) +
+  geom_bar(aes(factor(prsexp2)), 
+           fill = rainbow(6), color = 'black')
+```
+
+**Your turn:** Make a barplot of the variable *day* in the dataset **tips**.
+
+]
+
+---
+
+class: inverse, center, middle
+
+# Graphs discrete x discrete variables
+
+<html><div style='float:left'></div><hr color='#f2a900' size=1px width=720px></html> 
+
+---
+
+# Mosaic-plots
+
+.font130[
+
+A bar-plot with two variables, one against the other, gives us a good idea whether they are related with each other.
+
+This code plots the variable *corruption* against the variable *courts*:
+
+```
+ggplot(data = PErisk) +
+  geom_bar(mapping = aes(x = factor(prscorr2), 
+                         fill = as.factor(courts)),
+           position = 'fill')
+
+PErisk$corruption = ifelse(PErisk$prscorr2>2, 'Low', 'High')
+ggplot(PErisk) +
+  geom_bar(mapping = aes(x = corruption, fill = as.factor(courts)),
+           position = 'fill')
+```
+
+**Your turn:** Make a mosaic-plot of the variables *sex* and *smoke*, in the dataset **tips**.
+
+]
+
+---
+
+
+class: inverse, center, middle
+
+# Graphs discrete x numeric variables
+
+<html><div style='float:left'></div><hr color='#f2a900' size=1px width=720px></html> 
+
+---
+
+# Box-plots for multiple categories
+
+.font130[
+
+To visualize the variation in a numeric variable, conditioning by a discrete variable, we can use the `box-plot` (or violin-plots) in a clever way:
+
+```
+ggplot(PErisk) +
+  geom_boxplot(mapping = aes(x = as.factor(corruption), y = barb2))
+
+ggplot(PErisk) +
+  geom_violin(mapping = aes(x = as.factor(corruption), y = barb2))
+```
+
+**Your turn:** Plot the variable *tip* against the *time* of the day, in the dataset **tips**.
+
+]
+
+---
+
+
+
+class: inverse, center, middle
+
+# Graphs numeric x numeric variables
+
+<html><div style='float:left'></div><hr color='#f2a900' size=1px width=720px></html> 
+
+---
+
+# Scatter-plots
+
+.font130[
+
+Two numeric variables, one against the other, are better visualized using a scatter-plot:
+
+```
+ggplot(data = PErisk) +
+  geom_point(mapping = aes(x = barb2, y = gdpw2))
+  
+ggplot(data = PErisk) +
+  geom_point(mapping = aes(x = barb2, y = gdpw2)) +
+  geom_smooth(mapping = aes(x = barb2, y = gdpw2), method = 'lm')
+```
+
+]
+
+---
+
+# Scatter-plots
+
+.font130[
+
+Two numeric variables, one against the other, are better visualized using a scatter-plot:
+
+```
+ggplot(data = PErisk) +
+  geom_point(mapping = aes(x = barb2, y = gdpw2, color = courts)) +
+  geom_smooth(mapping = aes(x = barb2, y = gdpw2), method = 'lm')
+              
+ggplot(data = PErisk) +
+  geom_point(mapping = aes(x = barb2, y = gdpw2, color = courts)) +
+  geom_smooth(mapping = aes(x = barb2, y = gdpw2, color = courts), 
+              method = 'lm')
+```
+
+**Your turn:** In the dataset **tips**, plot the variable *tip* against the variable *totbill*, with and without differentiating by *smoker*.
+
+]
+
+---
+
+
+class: inverse, center, middle
+
+# Questions?
+
+<html><div style='float:left'></div><hr color='#f2a900' size=1px width=720px></html>
+
+---
+
+class: inverse, center, middle
+
+# Have a great weekend!
+
+<html><div style='float:left'></div><hr color='#f2a900' size=1px width=720px></html>
